@@ -80,7 +80,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_route_table" "public-route" {
-  vpc_id = aws_vpc.main.vpc_id
+  vpc_id = aws_vpc.main.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -103,7 +103,7 @@ resource "aws_route_table_association" "public-b-association" {
 }
 
 resource "aws_eip" "nat-a" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
     "Name" = "${local.vpc_name}-NAT-a"
@@ -111,7 +111,7 @@ resource "aws_eip" "nat-a" {
 }
 
 resource "aws_eip" "nat-b" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
     "Name" = "${local.vpc_name}-NAT-b"
